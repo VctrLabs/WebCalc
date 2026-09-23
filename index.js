@@ -7,7 +7,7 @@ const cjenovnik = {
     faza5: { ime: "FAZA 5: Enterprise & Automation", A: 6000, B: 2500, B_mjesečno: 350, C: 0, C_mjesečno: 650 }
 };
 
-// 2. FUNKCIJA ZA GLAVNO RAČUNANJE
+// 2. FUNKCIJA ZA GLAVNO RAČUNANJE I OSVJEŽAVANJE INTERFEJSA
 function izracunajPredracun() {
     // Pokupi selektovanu fazu
     const selektovanaFazaRadio = document.querySelector('input[name="faza"]:checked');
@@ -18,7 +18,6 @@ function izracunajPredracun() {
     const selektovanaOpcijaRadio = document.querySelector('input[name="opcija"]:checked');
     const opcija = selektovanaOpcijaRadio ? selektovanaOpcijaRadio.value : 'A';
 
-    // Inicijalizacija nula za sume
     let jednokratno = 0;
     let mjesecno = 0;
 
@@ -35,10 +34,10 @@ function izracunajPredracun() {
     }
 
     // 3. PROVJERA DODATNIH INFRASTRUKTURNIH ELEMENTA
-    const hostingChecked = document.getElementById('add-hosting').checked;
-    const dbChecked = document.getElementById('add-db').checked;
-    const seoChecked = document.getElementById('add-seo').checked;
-    const langChecked = document.getElementById('add-lang').checked;
+    const hostingChecked = document.getElementById('add-hosting')?.checked || false;
+    const dbChecked = document.getElementById('add-db')?.checked || false;
+    const seoChecked = document.getElementById('add-seo')?.checked || false;
+    const langChecked = document.getElementById('add-lang')?.checked || false;
 
     // Dodaj mjesečne troškove
     if (hostingChecked) mjesecno += 10;
@@ -49,45 +48,92 @@ function izracunajPredracun() {
     if (langChecked) jednokratno += 100;
 
     // 4. AŽURIRANJE INTERFEJSA (DOM-a)
-    document.getElementById('total-one-time').innerText = jednokratno + ' €';
-    document.getElementById('total-monthly').innerText = mjesecno + ' € / mj';
+    const elTotalOneTime = document.getElementById('total-one-time');
+    const elTotalMonthly = document.getElementById('total-monthly');
+    const elRentWarning = document.getElementById('rent-warning');
 
-    // Prikaži ili sakrij ljubičasto upozorenje specifično za Opciju C (Renta)
-    const rentWarning = document.getElementById('rent-warning');
-    if (opcija === 'C') {
-        rentWarning.classList.remove('hidden');
-    } else {
-        rentWarning.classList.add('hidden');
+    if (elTotalOneTime) elTotalOneTime.innerText = jednokratno + ' €';
+    if (elTotalMonthly) elTotalMonthly.innerText = mjesecno + ' € / mj';
+
+    // Prikaži ili sakrij upozorenje za Opciju C (Renta)
+    if (elRentWarning) {
+        if (opcija === 'C') {
+            elRentWarning.classList.remove('hidden');
+        } else {
+            elRentWarning.classList.add('hidden');
+        }
     }
+
+    // Ažuriraj tekstualni pregled stavki u predračunu
+    azurirajPregledStavki(fazaPodaci.ime, opcija, { hostingChecked, dbChecked, seoChecked, langChecked });
 }
 
-// 5. GENERISANJE NASUMIČNOG BROJA PREDRAČUNA (Čisto zbog profesionalnog izgleda)
+// FUNKCIJA ZA PRIKAZ DETAIL STAVKI U PREDRAČUNU
+function azurirajPregledStavki(fazaIme, opcija, dodaci) {
+    const container = document.getElementById('summary-items');
+    if (!container) return;
+
+    let opcijaNaziv = "";
+    if (opcija === 'A') opcijaNaziv = "Opcija A (Ključ u ruke)";
+    if (opcija === 'B') opcijaNaziv = "Opcija B (Hibrid)";
+    if (opcija === 'C') opcijaNaziv = "Opcija C (Renta)";
+
+    let html = `
+        <div class="border-b border-slate-700/60 pb-2">
+            <span class="text-xs text-slate-400 block">Izabrana faza:</span>
+            <span class="text-sm font-semibold text-white block">${fazaIme}</span>
+            <span class="text-xs text-blue-400 mt-1 block font-medium">${opcijaNaziv}</span>
+        </div>
+    `;
+
+    let dodaciList = [];
+    if (dodaci.hostingChecked) dodaciList.push("Premium Hosting (+10 €/mj)");
+    if (dodaci.dbChecked) dodaciList.push("Cloud Baza (+15 €/mj)");
+    if (dodaci.seoChecked) dodaciList.push("SEO Paket (+150 €)");
+    if (dodaci.langChecked) dodaciList.push("Višejezičnost (+100 €)");
+
+    if (dodaciList.length > 0) {
+        html += `
+            <div class="pt-2 text-xs">
+                <span class="text-slate-400 block mb-1">Izabrani dodaci:</span>
+                <ul class="list-disc list-inside space-y-1 text-slate-300">
+                    ${dodaciList.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
+}
+
+// 5. GENERISANJE NASUMIČNOG BROJA PREDRAČUNA
 function generisiBrojPredracuna() {
     const godina = new Date().getFullYear();
     const nasumicniBroj = Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('invoice-id').innerText = `#WEB-${godina}-${nasumicniBroj}`;
+    const el = document.getElementById('invoice-id');
+    if (el) el.innerText = `#WEB-${godina}-${nasumicniBroj}`;
 }
 
-// 6. EVENT LISTENERS - OLUŠKIVANJE PROMJENA NA STRANICI
+// 6. EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
     generisiBrojPredracuna();
 
-    // Dodaj osluškivač na sve radio buttone za faze
+    // Slušaj promjene na fazama
     document.querySelectorAll('input[name="faza"]').forEach(radio => {
         radio.addEventListener('change', izracunajPredracun);
     });
 
-    // Dodaj osluškivač na sve radio buttone za opcije plaćanja
+    // Slušaj promjene na opcijama plaćanja
     document.querySelectorAll('input[name="opcija"]').forEach(radio => {
         radio.addEventListener('change', izracunajPredracun);
     });
 
-    // Dodaj osluškivače na sve checkboxove za dodatke
-    document.getElementById('add-hosting').addEventListener('change', izracunajPredracun);
-    document.getElementById('add-db').addEventListener('change', izracunajPredracun);
-    document.getElementById('add-seo').addEventListener('change', izracunajPredracun);
-    document.getElementById('add-lang').addEventListener('change', izracunajPredracun);
+    // Slušaj promjene na checkboxovima
+    ['add-hosting', 'add-db', 'add-seo', 'add-lang'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', izracunajPredracun);
+    });
 
-    // Pokreni prvo inicijalno računanje pri učitavanju
+    // Inicijalno pokretanje računanja
     izracunajPredracun();
 });

@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Dev Kalkulator & Predračun</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://jsdelivr.net"></script>
-    <!-- FontAwesome za ikonice -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Ikonice -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Prilagođeni CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Prilagođeni JavaScript -->
+    <script src="index.js" defer></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen">
 
     <div class="max-w-6xl mx-auto px-4 py-8">
         <!-- Header -->
-        <header class="text-center mb-12">
+        <header class="text-center mb-10">
             <h1 class="text-4xl font-extrabold tracking-tight text-white mb-2">
                 Interaktivni Web Dev Kalkulator
             </h1>
@@ -23,13 +27,13 @@
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- LIJEVA STRANA: KONFIGURATOR (Klijent bira) -->
+            <!-- LIJEVA STRANA: KONFIGURATOR -->
             <div class="lg:col-span-2 space-y-8">
                 
                 <!-- 1. KORAK: Izbor faze projekta -->
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
                     <div class="flex items-center space-x-3 mb-4">
-                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</span>
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
                         <h2 class="text-xl font-bold text-white">Izaberite fazu projekta</h2>
                     </div>
                     <div class="space-y-3">
@@ -66,7 +70,7 @@
                         </label>
 
                         <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza4" class="mt-1 accent-blue-500">
+                            <input type="radio" name="faza" value="faza5" class="mt-1 accent-blue-500">
                             <div>
                                 <span class="font-bold text-white block">FAZA 5: "Enterprise & Automation" (Korporativni sistemi)</span>
                                 <span class="text-xs text-slate-400">Unikatan full-stack razvoj, integracija sa ERP/CRM sistemima, višejezičnost.</span>
@@ -78,7 +82,7 @@
                 <!-- 2. KORAK: Izbor modela plaćanja -->
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
                     <div class="flex items-center space-x-3 mb-4">
-                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</span>
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
                         <h2 class="text-xl font-bold text-white">Izaberite model plaćanja</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -100,15 +104,15 @@
                             <input type="radio" name="opcija" value="C" class="absolute top-3 right-3 accent-blue-500">
                             <i class="fa-solid fa-cloud-moon text-2xl text-purple-400 mb-2 block"></i>
                             <span class="font-bold text-white block mb-1">Opcija C</span>
-                            <span class="text-xs text-slate-400 block">Renta. 0 KM odmah, plaćanje kroz mjesečnu pretplatu.</span>
+                            <span class="text-xs text-slate-400 block">Renta. 0 € odmah, plaćanje kroz mjesečnu pretplatu.</span>
                         </label>
                     </div>
                 </section>
 
-                <!-- 3. KORAK: Dodatni elementi i infrastruktura -->
+                <!-- 3. KORAK: Dodatni elementi -->
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
                     <div class="flex items-center space-x-3 mb-4">
-                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</span>
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
                         <h2 class="text-xl font-bold text-white">Dodatni elementi i infrastruktura</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -134,3 +138,62 @@
                                 <span class="font-medium text-white block text-sm">Napredni SEO Paket</span>
                                 <span class="text-xs text-slate-400">+150 € jednokratno</span>
                             </div>
+                        </label>
+
+                        <label class="flex items-center space-x-3 bg-slate-700/30 p-3 rounded-lg border border-slate-600/50 cursor-pointer hover:bg-slate-700/50 transition">
+                            <input type="checkbox" id="add-lang" class="w-5 h-5 accent-blue-500">
+                            <div>
+                                <span class="font-medium text-white block text-sm">Višejezičnost (Multi-language)</span>
+                                <span class="text-xs text-slate-400">+100 € jednokratno</span>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+            </div>
+
+            <!-- DESNA STRANA: PREDRAČUN (SUMMARY CARD) -->
+            <div class="lg:col-span-1">
+                <div class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 sticky top-6">
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-4 mb-4">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice-dollar text-blue-400"></i>
+                            Predračun
+                        </h3>
+                        <span id="invoice-id" class="text-xs font-mono text-slate-400 bg-slate-900 px-2 py-1 rounded border border-slate-700">#WEB-0000</span>
+                    </div>
+
+                    <!-- Detaljan pregled stavki -->
+                    <div id="summary-items" class="space-y-3 mb-6">
+                        <!-- Generiše se automatski iz JS-a -->
+                    </div>
+
+                    <!-- Ukupne Cijene -->
+                    <div class="space-y-3 border-t border-slate-700 pt-4 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400 text-sm">Jednokratno:</span>
+                            <span id="total-one-time" class="text-2xl font-black text-blue-400">0 €</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400 text-sm">Mjesečno održavanje:</span>
+                            <span id="total-monthly" class="text-xl font-bold text-emerald-400">0 € / mj</span>
+                        </div>
+                    </div>
+
+                    <!-- Upozorenje za Rentu (Opcija C) -->
+                    <div id="rent-warning" class="hidden bg-purple-950/40 border border-purple-500/40 rounded-lg p-3 text-xs text-purple-200 mb-6">
+                        <i class="fa-solid fa-circle-info text-purple-400 mr-1"></i>
+                        <strong>Napomena za Rentu:</strong> Opcija C uključuje obavezujući ugovor na minimalno 12 mjeseci. Sajt ostaje na našem serveru tokom trajanja zakupa.
+                    </div>
+
+                    <!-- Akciona dugmad -->
+                    <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Preuzmi PDF Predračun</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

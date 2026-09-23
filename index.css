@@ -8,7 +8,7 @@ input[type="checkbox"]:checked + div {
     color: #ffffff;
 }
 
-/* Custom stil za sakrivanje skrola na sticky elementu ako zatreba */
+/* Custom stil za sakrivanje skrola na sticky elementu */
 .sticky {
     max-height: calc(100vh - 4rem);
     overflow-y: auto;
@@ -26,22 +26,20 @@ input[type="checkbox"]:checked + div {
 /* ==========================================================================
    PRINTER & PDF EXPORT OPTIMIZACIJA
    Ovaj dio osigurava da se prilikom čuvanja u PDF sakriju nepotrebne stvari,
-   a predračun prebaci u čist profesionalni izgled.
+   a predračun prebaci u čist profesionalni izgled na bijelom papiru.
    ========================================================================== */
 @media print {
-    /* Sakrij cijelu pozadinu i lijevu stranu za konfiguraciju */
     body {
         background-color: #ffffff !important;
         color: #000000 !important;
     }
     
     header, 
-    section,
+    .lg\:col-span-2,
     button {
         display: none !important;
     }
     
-    /* Proširi predračun preko cijelog ekrana */
     .grid {
         display: block !important;
     }
@@ -50,7 +48,6 @@ input[type="checkbox"]:checked + div {
         width: 100% !important;
     }
     
-    /* Pretvori tamni prozor predračuna u čist bijeli papirni format */
     .bg-slate-800 {
         background-color: #ffffff !important;
         border: none !important;
@@ -59,7 +56,7 @@ input[type="checkbox"]:checked + div {
         padding: 0 !important;
     }
     
-    h3, span, div {
+    h3, span, div, p, li {
         color: #000000 !important;
         border-color: #e2e8f0 !important;
     }
@@ -72,7 +69,6 @@ input[type="checkbox"]:checked + div {
         color: #047857 !important; /* Tamno zelena za mjesečni trošak */
     }
     
-    /* Prikaži napomenu o renti na papiru na jasan način */
     #rent-warning {
         display: block !important;
         background-color: #f8fafc !important;
