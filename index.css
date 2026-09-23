@@ -8,6 +8,13 @@ input[type="checkbox"]:checked + div {
     color: #ffffff;
 }
 
+/* Isticanje selektovane faza kartice */
+.faza-card:has(input[type="radio"]:checked) {
+    border-color: #3b82f6 !important;
+    background-color: rgba(30, 41, 59, 0.8) !important;
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.15);
+}
+
 /* Custom stil za sakrivanje skrola na sticky elementu */
 .sticky {
     max-height: calc(100vh - 4rem);
@@ -50,23 +57,23 @@ input[type="checkbox"]:checked + div {
     
     .bg-slate-800 {
         background-color: #ffffff !important;
-        border: none !important;
+        border: 1px solid #e2e8f0 !important;
         box-shadow: none !important;
         color: #000000 !important;
-        padding: 0 !important;
+        padding: 1.5rem !important;
     }
     
     h3, span, div, p, li {
         color: #000000 !important;
-        border-color: #e2e8f0 !important;
+        border-color: #cbd5e1 !important;
     }
     
     #total-one-time {
-        color: #1e3a8a !important; /* Tamno plava za print */
+        color: #1e3a8a !important;
     }
     
     #total-monthly {
-        color: #047857 !important; /* Tamno zelena za mjesečni trošak */
+        color: #047857 !important;
     }
     
     #rent-warning {

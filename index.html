@@ -12,70 +12,214 @@
     <link rel="stylesheet" href="index.css">
     <!-- Prilagođeni JavaScript -->
     <script src="index.js" defer></script>
+    <style>
+        /* Skrivanje podrazumijevane browser strelice za summary */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen">
 
     <div class="max-w-6xl mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-10">
+        <!-- Header (Sakriva se pri štampi) -->
+        <header class="text-center mb-10 print:hidden">
             <h1 class="text-4xl font-extrabold tracking-tight text-white mb-2">
                 Interaktivni Web Dev Kalkulator
             </h1>
             <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-                Konfigurišite idealan model saradnje, izaberite fazu projekta i dodatne elemente kako biste kreirali automatski predračun.
+                Konfigurišite idealan model saradnje, izaberite fazu projekta i pogledajte kompletnu specifikaciju usluga.
             </p>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- LIJEVA STRANA: KONFIGURATOR -->
-            <div class="lg:col-span-2 space-y-8">
+            <!-- LIJEVA STRANA: KONFIGURATOR (Sakriva se u PDF/Print pogledu) -->
+            <div class="lg:col-span-2 space-y-8 print:hidden">
                 
                 <!-- 1. KORAK: Izbor faze projekta -->
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
-                    <div class="flex items-center space-x-3 mb-4">
+                    <div class="flex items-center space-x-3 mb-6">
                         <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
-                        <h2 class="text-xl font-bold text-white">Izaberite fazu projekta</h2>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Izaberite fazu projekta</h2>
+                            <p class="text-xs text-slate-400">Klikom na pojedinu fazu ili padajući meni otvarate detaljnu specifikaciju.</p>
+                        </div>
                     </div>
-                    <div class="space-y-3">
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza1" checked class="mt-1 accent-blue-500">
-                            <div>
-                                <span class="font-bold text-white block">FAZA 1: "Insta-Web" (Landing / Jedna stranica)</span>
-                                <span class="text-xs text-slate-400">Jedna moderna stranica, galerija, kontakt forma i Google mapa.</span>
-                            </div>
-                        </label>
-                        
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza2" class="mt-1 accent-blue-500">
-                            <div>
-                                <span class="font-bold text-white block">FAZA 2: "Biznis Start" (Standardni sajt, 5-7 stranica)</span>
-                                <span class="text-xs text-slate-400">Kompletna struktura za firme, SEO optimizacija, blog/vijesti.</span>
-                            </div>
-                        </label>
 
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza3" class="mt-1 accent-blue-500">
-                            <div>
-                                <span class="font-bold text-white block">FAZA 3: "E-Commerce Core" (Web prodavnica)</span>
-                                <span class="text-xs text-slate-400">Internet trgovina do 100 artikala, korpa, integracija brze pošte i kartica.</span>
-                            </div>
-                        </label>
+                    <div class="space-y-4">
+                        <!-- FAZA 1 -->
+                        <div class="faza-card bg-slate-700/40 rounded-xl border border-slate-600 overflow-hidden transition hover:border-blue-500">
+                            <label class="p-4 cursor-pointer flex items-start space-x-3 select-none">
+                                <input type="radio" name="faza" value="faza1" checked class="mt-1 accent-blue-500">
+                                <div class="flex-1">
+                                    <span class="font-bold text-white text-base block">FAZA 1: "Insta-Web" (Landing / Jedna stranica)</span>
+                                    <span class="text-xs text-slate-400 block mt-0.5">Jedna moderna stranica, galerija, kontakt forma i Google mapa. Idealno za brzi start.</span>
+                                </div>
+                            </label>
+                            
+                            <details open class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-5 py-3 cursor-pointer flex justify-between items-center text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check"></i> Šta sve tačno dobijate u FAZI 1
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-5 pt-2 border-t border-slate-800/60">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Unikatan UI/UX dizajn jedne stranice</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Prilagođeno mobitelima (Responsive)</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-comments text-cyan-400"></i> Direktne konsultacije i rad po Vašem ukusu</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Hero sekcija + O nama + Usluge</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-database text-amber-400"></i> Osnovna baza podataka</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Interaktivna foto/video galerija</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Kontakt forma sa direktnim e-mail upitom</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Google Maps integracija lokacije</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> WhatsApp / Viber ikone</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Ultra-brzo učitavanje (Lighthouse 90+)</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Besplatan SSL certifikat</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Osnovni SEO meta tagovi</li>
+                                        <li id="support-faza1" class="flex items-center gap-2 col-span-1 md:col-span-2 pt-1 border-t border-slate-700/50 font-medium"></li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
 
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza4" class="mt-1 accent-blue-500">
-                            <div>
-                                <span class="font-bold text-white block">FAZA 4: "Custom Portal" (Napredne platforme i baze)</span>
-                                <span class="text-xs text-slate-400">Portali za nekretnine, rezervacije, oglasnici, korisnički dashboardi.</span>
-                            </div>
-                        </label>
+                        <!-- FAZA 2 -->
+                        <div class="faza-card bg-slate-700/40 rounded-xl border border-slate-600 overflow-hidden transition hover:border-blue-500">
+                            <label class="p-4 cursor-pointer flex items-start space-x-3 select-none">
+                                <input type="radio" name="faza" value="faza2" class="mt-1 accent-blue-500">
+                                <div class="flex-1">
+                                    <span class="font-bold text-white text-base block">FAZA 2: "Biznis Start" (Standardni sajt, 5-7 stranica)</span>
+                                    <span class="text-xs text-slate-400 block mt-0.5">Kompletna struktura za firme, SEO optimizacija, blog/vijesti i CMS sistem.</span>
+                                </div>
+                            </label>
 
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
-                            <input type="radio" name="faza" value="faza5" class="mt-1 accent-blue-500">
-                            <div>
-                                <span class="font-bold text-white block">FAZA 5: "Enterprise & Automation" (Korporativni sistemi)</span>
-                                <span class="text-xs text-slate-400">Unikatan full-stack razvoj, integracija sa ERP/CRM sistemima, višejezičnost.</span>
-                            </div>
-                        </label>
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-5 py-3 cursor-pointer flex justify-between items-center text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check"></i> Šta sve tačno dobijate u FAZI 2
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-5 pt-2 border-t border-slate-800/60">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sve iz Faze 1 uključeno</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-comments text-cyan-400"></i> Direktne konsultacije i rad po Vašem ukusu</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Do 7 zasebnih stranica</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> CMS sistem za samostalno uređivanje</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Napredni Blog / Vijesti modul</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Forma za ponude/upite</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Kompletna On-Page SEO optimizacija</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Google Analytics 4 & Search Console</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Optimizacija slika i keširanje</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sigurnosna zaštita od spama</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Video obuka za klijenta</li>
+                                        <li id="support-faza2" class="flex items-center gap-2 col-span-1 md:col-span-2 pt-1 border-t border-slate-700/50 font-medium"></li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- FAZA 3 -->
+                        <div class="faza-card bg-slate-700/40 rounded-xl border border-slate-600 overflow-hidden transition hover:border-blue-500">
+                            <label class="p-4 cursor-pointer flex items-start space-x-3 select-none">
+                                <input type="radio" name="faza" value="faza3" class="mt-1 accent-blue-500">
+                                <div class="flex-1">
+                                    <span class="font-bold text-white text-base block">FAZA 3: "E-Commerce Core" (Web prodavnica)</span>
+                                    <span class="text-xs text-slate-400 block mt-0.5">Internet trgovina do 100 artikala, korpa, integracija brze pošte i kartica.</span>
+                                </div>
+                            </label>
+
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-5 py-3 cursor-pointer flex justify-between items-center text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check"></i> Šta sve tačno dobijate u FAZI 3
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-5 pt-2 border-t border-slate-800/60">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sve iz Faze 2 uključeno</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-comments text-cyan-400"></i> Direktne konsultacije i rad po Vašem ukusu</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Unos i podešavanje do 100 artikala</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Varijacije proizvoda (Veličine, boje)</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Kartično plaćanje (Monri, Stripe, PayPal)</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Plaćanje pouzećem / Virmanom</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Integracija brze pošte</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Promo kuponi i popusti</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Nalozi kupaca i istorija kupovine</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> E-mail notifikacije o narudžbama</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> GDPR usklađenost</li>
+                                        <li id="support-faza3" class="flex items-center gap-2 col-span-1 md:col-span-2 pt-1 border-t border-slate-700/50 font-medium"></li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- FAZA 4 -->
+                        <div class="faza-card bg-slate-700/40 rounded-xl border border-slate-600 overflow-hidden transition hover:border-blue-500">
+                            <label class="p-4 cursor-pointer flex items-start space-x-3 select-none">
+                                <input type="radio" name="faza" value="faza4" class="mt-1 accent-blue-500">
+                                <div class="flex-1">
+                                    <span class="font-bold text-white text-base block">FAZA 4: "Custom Portal" (Napredne platforme i baze)</span>
+                                    <span class="text-xs text-slate-400 block mt-0.5">Portali za nekretnine, rezervacije, oglasnici, korisnički dashboardi.</span>
+                                </div>
+                            </label>
+
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-5 py-3 cursor-pointer flex justify-between items-center text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check"></i> Šta sve tačno dobijate u FAZI 4
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-5 pt-2 border-t border-slate-800/60">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Prilagođena web aplikacija / Portal</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Custom Admin Panel sa analitikom [URAČUNATO]</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> PostgreSQL / MySQL baza podataka</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sistem uloga (Admin, Agent, Korisnik)</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Napredna pretraga i filtriranje</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Korisnički Dashboard za upravljanje</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Interaktivna mapa sa pinovima</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Sistem rezervacija sa kalendarom</li>
+                                        <li id="support-faza4" class="flex items-center gap-2 col-span-1 md:col-span-2 pt-1 border-t border-slate-700/50 font-medium"></li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- FAZA 5 -->
+                        <div class="faza-card bg-slate-700/40 rounded-xl border border-slate-600 overflow-hidden transition hover:border-blue-500">
+                            <label class="p-4 cursor-pointer flex items-start space-x-3 select-none">
+                                <input type="radio" name="faza" value="faza5" class="mt-1 accent-blue-500">
+                                <div class="flex-1">
+                                    <span class="font-bold text-white text-base block">FAZA 5: "Enterprise & Automation" (Korporativni sistemi)</span>
+                                    <span class="text-xs text-slate-400 block mt-0.5">Unikatan full-stack razvoj, integracija sa ERP/CRM sistemima, višejezičnost.</span>
+                                </div>
+                            </label>
+
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-5 py-3 cursor-pointer flex justify-between items-center text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check"></i> Šta sve tačno dobijate u FAZI 5
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-5 pt-2 border-t border-slate-800/60">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-300">
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Full-Stack prilagođena arhitektura</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Custom Admin Panel [URAČUNATO]</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Integracija sa ERP / CRM sistemima</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Višejezični i višekalutni sistem</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Enkripcija i visoki nivo sigurnosti</li>
+                                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> SLA Garancija dostupnosti (99.9%)</li>
+                                        <li id="support-faza5" class="flex items-center gap-2 col-span-1 md:col-span-2 pt-1 border-t border-slate-700/50 font-medium"></li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+
                     </div>
                 </section>
 
@@ -83,83 +227,315 @@
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
                     <div class="flex items-center space-x-3 mb-4">
                         <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
-                        <h2 class="text-xl font-bold text-white">Izaberite model plaćanja</h2>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Izaberite model plaćanja i podrške</h2>
+                            <p class="text-xs text-slate-400">Svaka opcija nosi drugačiji nivo uključene mjesečne podrške i održavanja.</p>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer text-center relative">
-                            <input type="radio" name="opcija" value="A" checked class="absolute top-3 right-3 accent-blue-500">
-                            <i class="fa-solid fa-key text-2xl text-blue-400 mb-2 block"></i>
-                            <span class="font-bold text-white block mb-1">Opcija A</span>
-                            <span class="text-xs text-slate-400 block">Ključ u ruke. Jednokratno plaćanje i puni kod.</span>
-                        </label>
 
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer text-center relative">
-                            <input type="radio" name="opcija" value="B" class="absolute top-3 right-3 accent-blue-500">
-                            <i class="fa-solid fa-screwdriver-wrench text-2xl text-emerald-400 mb-2 block"></i>
-                            <span class="font-bold text-white block mb-1">Opcija B</span>
-                            <span class="text-xs text-slate-400 block">Hibrid. Manji start + mjesečno održavanje.</span>
-                        </label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <!-- OPCIJA A -->
+                        <div class="bg-slate-700/50 rounded-lg border border-slate-600 hover:border-blue-500 transition overflow-hidden flex flex-col justify-between">
+                            <label class="p-4 cursor-pointer relative block">
+                                <input type="radio" name="opcija" value="A" checked class="absolute top-3 right-3 accent-blue-500">
+                                <i class="fa-solid fa-key text-2xl text-blue-400 mb-2 block text-center"></i>
+                                <span class="font-bold text-white block text-center mb-1">Opcija A (Ključ u ruke)</span>
+                                <span class="text-xs text-slate-300 block mb-2 text-center font-medium">Jednokratno plaćanje + Vlasništvo</span>
+                                <p class="text-[11px] text-slate-400 leading-relaxed">
+                                    Plaćate jednokratno po završetku. Sajt je 100% Vaš. Uključene besplatne revizije i garancija.
+                                </p>
+                            </label>
 
-                        <label class="block bg-slate-700/50 p-4 rounded-lg border border-slate-600 hover:border-blue-500 transition cursor-pointer text-center relative">
-                            <input type="radio" name="opcija" value="C" class="absolute top-3 right-3 accent-blue-500">
-                            <i class="fa-solid fa-cloud-moon text-2xl text-purple-400 mb-2 block"></i>
-                            <span class="font-bold text-white block mb-1">Opcija C</span>
-                            <span class="text-xs text-slate-400 block">Renta. 0 € odmah, plaćanje kroz mjesečnu pretplatu.</span>
-                        </label>
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-3 py-2 cursor-pointer flex justify-between items-center text-[11px] font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition select-none list-none">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Detalji Opcije A</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-3 pt-2 border-t border-slate-800/60 text-[11px] text-slate-300 space-y-2 leading-normal">
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Puna predaja projekta:</strong> React + Tailwind kod i baza se predaju na Vaše naloge.</p>
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Nula mjesečnih obaveza:</strong> Nemate pretplatu prema nama.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- OPCIJA B -->
+                        <div class="bg-slate-700/50 rounded-lg border border-slate-600 hover:border-blue-500 transition overflow-hidden flex flex-col justify-between">
+                            <label class="p-4 cursor-pointer relative block">
+                                <input type="radio" name="opcija" value="B" class="absolute top-3 right-3 accent-blue-500">
+                                <i class="fa-solid fa-screwdriver-wrench text-2xl text-emerald-400 mb-2 block text-center"></i>
+                                <span class="font-bold text-white block text-center mb-1">Opcija B (Hibrid)</span>
+                                <span class="text-xs text-emerald-400 block mb-2 text-center font-medium">Manji start + Mjesečni rad</span>
+                                <p class="text-[11px] text-slate-400 leading-relaxed">
+                                    Niska početna cijena izrade uz mjesečnu pretplatu koja uključuje 5–10h radnih sati mjesečno za održavanje.
+                                </p>
+                            </label>
+
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-3 py-2 cursor-pointer flex justify-between items-center text-[11px] font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition select-none list-none">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Detalji Opcije B</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-3 pt-2 border-t border-slate-800/60 text-[11px] text-slate-300 space-y-2 leading-normal">
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Radni sati:</strong> 5–10h mjesečno za sitne korekcije tekstova i slika.</p>
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Održavanje:</strong> Redovno praćenje i backup baze.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- OPCIJA C -->
+                        <div class="bg-slate-700/50 rounded-lg border border-slate-600 hover:border-blue-500 transition overflow-hidden flex flex-col justify-between">
+                            <label class="p-4 cursor-pointer relative block">
+                                <input type="radio" name="opcija" value="C" class="absolute top-3 right-3 accent-blue-500">
+                                <i class="fa-solid fa-shield-halved text-2xl text-purple-400 mb-2 block text-center"></i>
+                                <span class="font-bold text-white block text-center mb-1">Opcija C (Renta & Dev)</span>
+                                <span class="text-xs text-purple-300 block mb-2 text-center font-medium">0 € odmah + Vaš programer</span>
+                                <p class="text-[11px] text-slate-400 leading-relaxed">
+                                    Bez uloga odmah. Dobijate posvećenog developera koji čuva i nadograđuje sajt.
+                                </p>
+                            </label>
+
+                            <details class="group bg-slate-900/60 border-t border-slate-700/80">
+                                <summary class="px-3 py-2 cursor-pointer flex justify-between items-center text-[11px] font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300 transition select-none list-none">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Detalji Opcije C</span>
+                                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-200"></i>
+                                </summary>
+                                <div class="p-3 pt-2 border-t border-slate-800/60 text-[11px] text-slate-300 space-y-2 leading-normal">
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Bez uloga:</strong> Izrada uračunata u mjesečni ugovor (min. 12 mjeseci).</p>
+                                    <p><i class="fa-solid fa-check text-emerald-400 mr-1"></i> <strong>Hosting uključen:</strong> Mi pokrivamo troškove infrastrukture.</p>
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </section>
 
-                <!-- 3. KORAK: Dodatni elementi -->
+                <!-- 3. KORAK: Standardni dodaci i infrastruktura -->
                 <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700">
-                    <div class="flex items-center space-x-3 mb-4">
+                    <div class="flex items-center space-x-3 mb-6">
                         <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
-                        <h2 class="text-xl font-bold text-white">Dodatni elementi i infrastruktura</h2>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Hosting, Baza, SEO i Jezici</h2>
+                            <p class="text-xs text-slate-400">Izaberite tehničku infrastrukturu i domenu Vašeg projekta.</p>
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label class="flex items-center space-x-3 bg-slate-700/30 p-3 rounded-lg border border-slate-600/50 cursor-pointer hover:bg-slate-700/50 transition">
-                            <input type="checkbox" id="add-hosting" class="w-5 h-5 accent-blue-500">
-                            <div>
-                                <span class="font-medium text-white block text-sm">Premium SSD Hosting</span>
-                                <span class="text-xs text-slate-400">+10 € / mjesečno</span>
-                            </div>
-                        </label>
+                        
+                        <!-- Hosting -->
+                        <div class="bg-slate-700/30 p-4 rounded-xl border border-slate-600/60 space-y-2">
+                            <label for="select-hosting" class="block text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-server text-blue-400"></i> Hosting & Cloud Paket
+                            </label>
+                            <select id="select-hosting" class="w-full bg-slate-800 border border-slate-600 text-white text-xs rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition cursor-pointer">
+                                <option value="none">Bez hostinga (Klijent ima vlastiti server)</option>
+                                <option value="ssd_10">Premium SSD Hosting (+10 € / mjesečno)</option>
+                                <option value="vps_25">Managed Cloud VPS Server (+25 € / mjesečno)</option>
+                                <option value="dedicated_50">Dedicated High-Performance Node (+50 € / mjesečno)</option>
+                            </select>
+                        </div>
 
-                        <label class="flex items-center space-x-3 bg-slate-700/30 p-3 rounded-lg border border-slate-600/50 cursor-pointer hover:bg-slate-700/50 transition">
-                            <input type="checkbox" id="add-db" class="w-5 h-5 accent-blue-500">
-                            <div>
-                                <span class="font-medium text-white block text-sm">Managed Cloud Baza Podataka</span>
-                                <span class="text-xs text-slate-400">+15 € / mjesečno</span>
-                            </div>
-                        </label>
+                        <!-- Baza podataka -->
+                        <div class="bg-slate-700/30 p-4 rounded-xl border border-slate-600/60 space-y-2">
+                            <label for="select-db" class="block text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-database text-amber-400"></i> Baza Podataka & Storage
+                            </label>
+                            <select id="select-db" class="w-full bg-slate-800 border border-slate-600 text-white text-xs rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition cursor-pointer">
+                                <option value="none">Osnovna lokalna baza (Uračunato u fazi)</option>
+                                <option value="managed_15">Managed Cloud Database (+15 € / mjesečno)</option>
+                                <option value="cluster_40">Enterprise PostgreSQL Cluster (+40 € / mjesečno)</option>
+                            </select>
+                        </div>
 
-                        <label class="flex items-center space-x-3 bg-slate-700/30 p-3 rounded-lg border border-slate-600/50 cursor-pointer hover:bg-slate-700/50 transition">
-                            <input type="checkbox" id="add-seo" class="w-5 h-5 accent-blue-500">
-                            <div>
-                                <span class="font-medium text-white block text-sm">Napredni SEO Paket</span>
-                                <span class="text-xs text-slate-400">+150 € jednokratno</span>
-                            </div>
-                        </label>
+                        <!-- SEO Paket -->
+                        <div class="bg-slate-700/30 p-4 rounded-xl border border-slate-600/60 space-y-2">
+                            <label for="select-seo" class="block text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-magnifying-glass text-emerald-400"></i> Nivo SEO Optimizacije
+                            </label>
+                            <select id="select-seo" class="w-full bg-slate-800 border border-slate-600 text-white text-xs rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition cursor-pointer">
+                                <option value="none">Osnovni On-Page SEO (Uračunato)</option>
+                                <option value="seo_150">Napredni SEO Paket (+150 € jednokratno)</option>
+                                <option value="seo_300">Lokalni + Tehnički SEO Audit & Optim (+300 € jednokratno)</option>
+                            </select>
+                        </div>
 
-                        <label class="flex items-center space-x-3 bg-slate-700/30 p-3 rounded-lg border border-slate-600/50 cursor-pointer hover:bg-slate-700/50 transition">
-                            <input type="checkbox" id="add-lang" class="w-5 h-5 accent-blue-500">
-                            <div>
-                                <span class="font-medium text-white block text-sm">Višejezičnost (Multi-language)</span>
-                                <span class="text-xs text-slate-400">+100 € jednokratno</span>
+                        <!-- Višejezičnost -->
+                        <div class="bg-slate-700/30 p-4 rounded-xl border border-slate-600/60 space-y-2">
+                            <label for="select-lang" class="block text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-language text-purple-400"></i> Višejezični Sistem
+                            </label>
+                            <select id="select-lang" class="w-full bg-slate-800 border border-slate-600 text-white text-xs rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition cursor-pointer">
+                                <option value="none">Samo 1 primarni jezik</option>
+                                <option value="lang_1">1 Dodatni jezik (+100 € jednokratno)</option>
+                                <option value="lang_2">2 Dodatna jezika (+180 € jednokratno)</option>
+                                <option value="lang_3">3+ Dodatna jezika (+250 € jednokratno)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 4. KORAK: NAPREDNI DODACI, APPS & BROJAČ STRANICA -->
+                <section class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 space-y-6">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Napredni dodaci, Mobilne aplikacije & Analitika</h2>
+                            <p class="text-xs text-slate-400">Proširite funkcionalnost i pretvorite Vaš web sajt u kompletni aplikativni ekosistem.</p>
+                        </div>
+                    </div>
+
+                    <!-- DINAMIČKI BROJAČ DODATNIH STRANICA -->
+                    <div class="bg-slate-700/40 rounded-xl p-4 border border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="font-bold text-white text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-file-circle-plus text-blue-400"></i>
+                                Dodatne Stranice (+40 € / stranica)
+                            </div>
+                            <p class="text-xs text-slate-400">Dodajte željeni broj vanstandardnih stranica (npr. Cjenovnik, Portfolio, Posebne usluge).</p>
+                        </div>
+                        <div class="flex items-center space-x-3 bg-slate-800 p-2 rounded-lg border border-slate-600 self-start sm:self-auto">
+                            <button type="button" id="btn-page-minus" class="w-8 h-8 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-md flex items-center justify-center transition cursor-pointer">-</button>
+                            <span id="page-count-display" class="w-8 text-center font-mono font-bold text-lg text-blue-400">0</span>
+                            <button type="button" id="btn-page-plus" class="w-8 h-8 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-md flex items-center justify-center transition cursor-pointer">+</button>
+                        </div>
+                    </div>
+
+                    <!-- PAMETNI ADMIN PANEL (Sa uslovnom logikom) -->
+                    <div class="bg-slate-700/40 rounded-xl p-4 border border-slate-600">
+                        <label class="flex items-start space-x-3 cursor-pointer select-none">
+                            <input type="checkbox" id="check-admin-panel" class="mt-1 accent-blue-500 rounded cursor-pointer">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white text-sm flex items-center gap-2">
+                                        <i class="fa-solid fa-sliders text-emerald-400"></i>
+                                        Custom Admin Panel & Kontrolna Tabla
+                                    </span>
+                                    <span id="admin-panel-badge" class="text-xs font-bold text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-600/40">+200 €</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Upravljajte sadržajem, slikama, narudžbama ili korisnicima putem zasebnog administratorskog sučelja.
+                                </p>
+                                <p id="admin-panel-notice" class="text-[11px] text-emerald-400 font-semibold mt-1 hidden">
+                                    <i class="fa-solid fa-circle-check"></i> Besplatno uračunato u izabranoj Fazi!
+                                </p>
                             </div>
                         </label>
                     </div>
+
+                    <!-- MOBILNI EKOSISTEM (PWA & APK & Play Store) -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-mobile-screen-button text-purple-400"></i> Mobilni Ekosistem ("Sajt u Aplikaciju")
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- PWA -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-pwa" value="80" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">PWA Instalacija (+80 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Instalacija na početni ekran mobitela jednim klikom iz browsera bez App Store-a.</span>
+                                </div>
+                            </label>
+
+                            <!-- Android App -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-apk" value="150" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Android .APK / .AAB Paket (+150 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Pakovanje web koda u nativni Android fajl spreman za instalaciju.</span>
+                                </div>
+                            </label>
+
+                            <!-- Play Store -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-playstore" value="200" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Google Play Store Objava (+200 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Kompletna obrada, screenshotovi, polisa privatnosti i publika na Play Store-u.</span>
+                                </div>
+                            </label>
+
+                            <!-- Live Updates -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-liveupdates" value="150" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Live Auto-Updates Sistem (+150 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Automatsko ažuriranje aplikacije na telefonima korisnika bez slanja nove verzije.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ANALITIKA & AUTOMATIZACIJA -->
+                    <div class="space-y-3">
+                        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-cyan-400"></i> Analytics & Pametne Notifikacije
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- Power Analytics -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-analytics" value="150" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Power Analytics & Live Dashboard (+150 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Hotjar/PostHog toplotne mape, uvid u live posjetioce u realnom vremenu i sedmični e-mail izvještaji.</span>
+                                </div>
+                            </label>
+
+                            <!-- WhatsApp / SMS -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-whatsapp" value="100" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">WhatsApp / SMS Notifikacije (+100 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Instant poruka na Vaš mobitel čim klijent pošalje upit ili napravi narudžbu.</span>
+                                </div>
+                            </label>
+
+                            <!-- Push Notifications -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-push" value="80" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Web Push Notifikacije (+80 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Slanje obavještenja i akcija svim posjetiocima direktno na mobitel/browser.</span>
+                                </div>
+                            </label>
+
+                            <!-- Backup & Security -->
+                            <label class="bg-slate-700/30 p-3 rounded-lg border border-slate-600/60 hover:border-blue-500 transition cursor-pointer flex items-start space-x-3">
+                                <input type="checkbox" id="extra-backup" value="100" class="mt-1 accent-blue-500 rounded">
+                                <div class="text-xs">
+                                    <span class="font-bold text-white block">Dnevni Cloud Backup & DDoS Sigurnost (+100 €)</span>
+                                    <span class="text-slate-400 block text-[11px]">Automatski dnevni backup baze + Cloudflare zaštita od hakerskih napada.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
                 </section>
             </div>
 
             <!-- DESNA STRANA: PREDRAČUN (SUMMARY CARD) -->
-            <div class="lg:col-span-1">
-                <div class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 sticky top-6">
+            <div class="lg:col-span-1 print:col-span-3">
+                <div class="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 sticky top-6 print:static print:border-none print:shadow-none print:p-0">
+                    
                     <div class="flex justify-between items-center border-b border-slate-700 pb-4 mb-4">
                         <h3 class="text-lg font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-file-invoice-dollar text-blue-400"></i>
-                            Predračun
+                            Predračun & Specifikacija
                         </h3>
                         <span id="invoice-id" class="text-xs font-mono text-slate-400 bg-slate-900 px-2 py-1 rounded border border-slate-700">#WEB-0000</span>
+                    </div>
+
+                    <!-- Podaci o klijentu -->
+                    <div class="mb-4 space-y-2 bg-slate-900/50 p-3 rounded-lg border border-slate-700/60">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Za Klijenta / Firmu:</label>
+                            <input type="text" id="client-name" placeholder="Unesite naziv klijenta ili firme" class="w-full bg-slate-800 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-500 transition print:bg-transparent print:border-none print:p-0 print:text-sm print:font-bold">
+                        </div>
+                        <div class="flex justify-between items-center text-[11px] text-slate-400 pt-1 border-t border-slate-800">
+                            <span>Datum ponude:</span>
+                            <span id="invoice-date" class="font-mono text-slate-300">--.--.----.</span>
+                        </div>
                     </div>
 
                     <!-- Detaljan pregled stavki -->
@@ -182,11 +558,11 @@
                     <!-- Upozorenje za Rentu (Opcija C) -->
                     <div id="rent-warning" class="hidden bg-purple-950/40 border border-purple-500/40 rounded-lg p-3 text-xs text-purple-200 mb-6">
                         <i class="fa-solid fa-circle-info text-purple-400 mr-1"></i>
-                        <strong>Napomena za Rentu:</strong> Opcija C uključuje obavezujući ugovor na minimalno 12 mjeseci. Sajt ostaje na našem serveru tokom trajanja zakupa.
+                        <strong>Napomena za Rentu (Opcija C):</strong> Uključuje ugovor na minimalno 12 mjeseci. Sajt ostaje na našem serveru i pod stalnim nadzorom.
                     </div>
 
                     <!-- Akciona dugmad -->
-                    <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30">
+                    <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30 cursor-pointer print:hidden">
                         <i class="fa-solid fa-print"></i>
                         <span>Preuzmi PDF Predračun</span>
                     </button>
